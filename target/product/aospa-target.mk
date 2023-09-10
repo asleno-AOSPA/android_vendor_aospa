@@ -82,7 +82,13 @@ PRODUCT_PACKAGES += \
     vendor.aospa.power-service
 
 # Google - GMS, Pixel, and Mainline Modules
+ifeq ($(WITH_GMS),true)
+$(warning Building with gapps)
 $(call inherit-product, vendor/google/gms/config.mk)
+else
+$(warning Building vanilla - without gapps)
+$(warning Add export WITH_GMS=true to include gapps)
+endif
 $(call inherit-product, vendor/google/pixel/config.mk)
 ifneq ($(TARGET_FLATTEN_APEX), true)
 $(call inherit-product-if-exists, vendor/google/modules/build/mainline_modules.mk)
